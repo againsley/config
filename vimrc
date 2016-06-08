@@ -33,6 +33,7 @@ set ignorecase
 set smartcase
 set hlsearch
 set incsearch
+nnoremap <esc> :noh<return><esc>
 
 "Swapfiles
 set directory=~/.vimswap

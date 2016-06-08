@@ -1,0 +1,48 @@
+# Settings
+ForwardAgent yes
+TCPKeepAlive yes
+serveraliveinterval 60
+serveralivecountmax 10
+ConnectTimeout 100
+
+## PW: Springfield
+Host wtmdev
+  Hostname dev.whentomanage.com
+  User adamg
+  IdentityFile ~/.ssh/id_rsa
+
+Host wtmstg
+  Hostname 54.224.89.190
+  User root
+  IdentityFile ~/.ssh/id_rsa
+
+Host wtmcrons
+  Hostname crons.whentomanage.com
+  User root
+  IdentityFile ~/.ssh/id_rsa
+
+Host wtmnewcrons
+  Hostname new-crons.whentomanage.com
+  User ubuntu
+  IdentityFile ~/.ssh/id_rsa
+
+Host wtmpos1
+  Hostname 54.227.33.115
+  User root
+  IdentityFile ~/.ssh/id_rsa
+
+Host wtmpos2
+  Hostname 54.89.200.23
+  User root
+  IdentityFile ~/.ssh/id_rsa
+
+## PW: Peach
+Host peachdev
+  Hostname dev.peachworks.com
+  User adamg
+  IdentityFile ~/.ssh/id_rsa
+
+Host peachdb
+  Hostname db-bastion.peachworks.com
+  User againsley
+  IdentityFile ~/.ssh/id_rsa

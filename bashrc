@@ -14,16 +14,10 @@ alias ...='cd ../..'
 alias home='cd ~'
 
 ## SSH SPRINGFIELD
-alias wtm='ssh adamg@dev.whentomanage.com'
-alias staging='ssh root@54.224.89.190'
-alias crons='ssh root@crons.whentomanage.com'
-alias newcrons='ssh ubuntu@new-crons.whentomanage.com'
-alias pos1='ssh root@54.227.33.115'
-alias pos2='ssh root@54.89.200.23'
+# Moved to ~/config/sshconfig
 
 ## SSH PEACH
-alias peachdev='ssh adamg@dev.peachworks.com'
-alias peachdb='ssh againsley@db-bastion.peachworks.com'
+# Moved to ~/config/sshconfig
 
 # CLEAR COMMANDS
 alias clera='clear'
@@ -37,6 +31,9 @@ alias clea='clear'
 # OTHER COMMANDS
 alias egrep='egrep -rin --color'
 
+# CONFIG UPDATES
+alias vimrcup='cp ~/config/vimrc ~/.vimrc'
+alias sshup='cp ~/config/sshrc ~/.ssh/config'
 
 # COLOR SCHEME
 export CLICOLOR=1
