@@ -1,5 +1,7 @@
 #COMMAND LINE#
 ##############
+
+# Set up command timing
 function timer_start {
   timer=${timer:-$SECONDS}
 }
@@ -9,44 +11,64 @@ function timer_stop {
   unset timer
 }
 
-function exitstatus {
 
-    EXITSTATUS="$?"
-    BOLD="\[\033[1m\]"
-    RED="\[\033[1;31m\]"
-    GREEN="\[\e[32;1m\]"
-    BLUE="\[\e[34;1m\]"
-    LIGHTGREEN="\e[92m\]"
-    OFF="\[\033[m\]"
+# Run the timer
+trap 'timer_start' DEBUG
+PROMPT_COMMAND="$PROMPT_COMMAND; timer_stop"
 
-    PROMPT="\n(\T) $(pwd) "
-    AFTERPROMPT="\n${BOLD}${LIGHTGREEN}\$${OFF} "
+# read/write history immediatly
+PROMPT_COMMAND="history -a; history -r; $PROMPT_COMMAND"
 
-    trap 'timer_start' DEBUG
 
-    if [ "$PROMPT_COMMAND" == "" ]; then
-      PROMPT_COMMAND="timer_stop"
-    else
-      PROMPT_COMMAND="$PROMPT_COMMAND; timer_stop"
-    fi
+function __prompt_command() {
 
-    if [ "${EXITSTATUS}" -eq 0 ]
-    then
-      STATUSCOLOR="${GREEN}"
-    else
-      STATUSCOLOR="${RED}"
-    fi
+  # Get last command status
+  # Apparantly this has to happen first
+  EXITSTATUS="$?"
 
-    # Get clean name of last command
-    local LAST_COMMAND="$(history 1)"
-    LAST_COMMAND=${LAST_COMMAND:7}
+  # Font styles
+  DATECOLOR="\[\033[38;5;105m\]"
+  STATUSCOLOR="\[\033[38;5;96m\]"
+  CWDCOLOR="\[\033[38;5;52m\]"
+  PROMPTCOLOR="\[\033[38;5;208m\]"
+  CPUCOLOR="\[\033[38;5;21m\]"
+  BOLD="\[\033[1m\]"
+  OFF="\[\033[m\]"
 
-    PS1="${PROMPT}${BOLD}${STATUSCOLOR}${LAST_COMMAND}:${EXITSTATUS}:${timer_show}${OFF}${AFTERPROMPT}"
-    PS2="${BOLD}>${OFF} "
+  # Status colors
+  SUCCESS="\[\033[38;5;70m\]"
+  FAILURE="\[\033[38;5;196m\]"
+
+  # Get clean name of last command
+  LAST_COMMAND="$(history 1)"
+  LAST_COMMAND=${LAST_COMMAND:7}
+  LAST_COMMAND="$(echo -e "${LAST_COMMAND}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')"
+
+  # Get status returned by last command
+  if [ "${EXITSTATUS}" -eq 0 ]
+  then
+    RESPONSECOLOR="${STATUSCOLOR}"
+  else
+    RESPONSECOLOR="${FAILURE}"
+  fi
+
+  # Get CPU
+  CPUPERCENT=$(ps -A -o %cpu | awk '{s+=$1} END {print s "%"}')
+
+  # Set prompt parts
+  DATE="[${DATECOLOR}"'\D{%F %T}'"${OFF}]"
+  STATUS="[${STATUSCOLOR}${LAST_COMMAND}:${RESPONSECOLOR}${EXITSTATUS}${STATUSCOLOR}:"'${timer_show}s'"${OFF}]"
+  CPU="[${CPUCOLOR}CPU:${CPUPERCENT}${OFF}]"
+  CWD="[${CWDCOLOR}$(pwd)${OFF}]"
+  PROMPT="%> "
+
+  # Donezo
+  PS1="\n${DATE}${STATUS}${CWD}${CPU}\n${PROMPT}"
+
 }
 
-PROMPT_COMMAND=exitstatus
-
+# export the prompt
+export PROMPT_COMMAND="__prompt_command; $PROMPT_COMMAND"
 
 #ALIASES#
 #########
