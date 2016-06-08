@@ -34,8 +34,6 @@ alias egrep='egrep -rin --color'
 # CONFIG UPDATES
 alias vimrcup='cp ~/config/vimrc ~/.vimrc'
 alias sshup='cp ~/config/sshrc ~/.ssh/config'
-alias bashup='cp ~/config/bashrc ~/.bashrc && cp ~/config/bash_profile ~/.bash_profile'
-alias configup='vimrcup && sshup && bashup'
 
 # COLOR SCHEME
 export CLICOLOR=1
