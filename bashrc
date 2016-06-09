@@ -44,11 +44,8 @@
     EXITSTATUS="$?"
 
     # Font styles
-    DATECOLOR="\[\033[38;5;105m\]"
-    STATUSCOLOR="\[\033[38;5;96m\]"
-    CWDCOLOR="\[\033[38;5;52m\]"
-    PROMPTCOLOR="\[\033[38;5;208m\]"
-    CPUCOLOR="\[\033[38;5;21m\]"
+    FONTCOLOR="\[\033[38;5;94m\]"
+    FRAMECOLOR="\[\033[38;5;047m\]"
     BOLD="\[\033[1m\]"
     OFF="\[\033[m\]"
 
@@ -64,7 +61,7 @@
     # Get status returned by last command
     if [ "${EXITSTATUS}" -eq 0 ]
     then
-      RESPONSECOLOR="${STATUSCOLOR}"
+      RESPONSECOLOR="${FONTCOLOR}"
     else
       RESPONSECOLOR="${FAILURE}"
     fi
@@ -72,15 +69,37 @@
     # Get CPU
     CPUPERCENT=$(ps -A -o %cpu | awk '{s+=$1} END {print s "%"}')
 
+    # Get CWD
+    CURRENTDIR="$(pwd)"
+    CWDLENGTH=19
+    CWDPOS=`expr ${#CURRENTDIR}-$CWDLENGTH`
+
+    if [ "${#CURRENTDIR}" -gt "${CWDLENGTH}" ]
+    then
+      CURRENTDIR="${CURRENTDIR:${CWDPOS}}"
+    else 
+      if [ "${#CURRENTDIR}" -lt "${CWDLENGTH}" ]
+      then
+        #PADS=`expr 0-${CDWPOS}`
+        printf -v CURRENTDIR "%${CWDLENGTH}s" "${CURRENTDIR}"
+      fi
+    fi
+      
+
     # Set prompt parts
-    DATE="[${DATECOLOR}"'\D{%F %T}'"${OFF}]"
-    STATUS="[${STATUSCOLOR}${LAST_COMMAND}:${RESPONSECOLOR}${EXITSTATUS}${STATUSCOLOR}:"'${timer_show}s'"${OFF}]"
-    CPU="[${CPUCOLOR}CPU:${CPUPERCENT}${OFF}]"
-    CWD="[${CWDCOLOR}$(pwd)${OFF}]"
-    PROMPT="%> "
+    DATE="${FONTCOLOR}"'\D{%F %T}'"${OFF}"
+    STATUS="${RESPONSECOLOR}${EXITSTATUS}${OFF}${FONTCOLOR}:"'${timer_show}s'"${OFF}"
+    CPU="${FONTCOLOR}${CPUPERCENT}${OFF}"
+    CWD="${FONTCOLOR}${CURRENTDIR}${OFF}"
+    START="${FRAMECOLOR}[${OFF}"
+    CONNECTOR="${FRAMECOLOR}]=[${OFF}"
+    END="${FRAMECOLOR}]${OFF}"
+    PROMPT="${FRAMECOLOR}${BOLD}=>${OFF} "
 
     # Donezo
-    PS1="\n${DATE}${STATUS}${CWD}${CPU}\n${PROMPT}"
+    LINE1="${START}${CWD}${CONNECTOR}${STATUS}${CONNECTOR}${CPU}${END}"
+    LINE2="${START}${DATE}${END}${PROMPT}"
+    PS1="\n${LINE1}\n${LINE2}"
   }
 
 # Export the prompt
