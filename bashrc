@@ -1,103 +1,323 @@
-#COMMAND LINE#
-##############
+#  ---------------------------------------------------------------------------
+#  Description:  This file holds all my BASH configurations and aliases
+#
+# Sections:
+#  1. Command Prompt
+#  2. Environment
+#  3. Aliases
+#  4. File and Folder Management
+#  5. Searching
+#  6. Process Management
+#  7. Networking
+#  8. System Operations & Information
+#  9. Web Development
+# 10. Config Repo Mgmt
+#
+# ---------------------------------------------------------------------------
+
+# -------------------------------
+# 1.  Command Prompt
+# -------------------------------
 
 # Set up command timing
-function timer_start {
-  timer=${timer:-$SECONDS}
-}
+  function timer_start {
+    timer=${timer:-$SECONDS}
+  }
 
-function timer_stop {
-  timer_show=$(($SECONDS - $timer))
-  unset timer
-}
+  function timer_stop {
+    timer_show=$(($SECONDS - $timer))
+    unset timer
+  }
 
 
 # Run the timer
-trap 'timer_start' DEBUG
-PROMPT_COMMAND="$PROMPT_COMMAND; timer_stop"
+  trap 'timer_start' DEBUG
+  PROMPT_COMMAND="$PROMPT_COMMAND; timer_stop"
 
 # read/write history immediatly
-PROMPT_COMMAND="history -a; history -r; $PROMPT_COMMAND"
+  PROMPT_COMMAND="history -a; history -r; $PROMPT_COMMAND"
+
+  function __prompt_command() {
+
+    # Get last command status
+    # Apparantly this has to happen first
+    EXITSTATUS="$?"
+
+    # Font styles
+    DATECOLOR="\[\033[38;5;105m\]"
+    STATUSCOLOR="\[\033[38;5;96m\]"
+    CWDCOLOR="\[\033[38;5;52m\]"
+    PROMPTCOLOR="\[\033[38;5;208m\]"
+    CPUCOLOR="\[\033[38;5;21m\]"
+    BOLD="\[\033[1m\]"
+    OFF="\[\033[m\]"
+
+    # Status colors
+    SUCCESS="\[\033[38;5;70m\]"
+    FAILURE="\[\033[38;5;196m\]"
+
+    # Get clean name of last command
+    LAST_COMMAND="$(history 1)"
+    LAST_COMMAND=${LAST_COMMAND:7}
+    LAST_COMMAND="$(echo -e "${LAST_COMMAND}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')"
+
+    # Get status returned by last command
+    if [ "${EXITSTATUS}" -eq 0 ]
+    then
+      RESPONSECOLOR="${STATUSCOLOR}"
+    else
+      RESPONSECOLOR="${FAILURE}"
+    fi
+
+    # Get CPU
+    CPUPERCENT=$(ps -A -o %cpu | awk '{s+=$1} END {print s "%"}')
+
+    # Set prompt parts
+    DATE="[${DATECOLOR}"'\D{%F %T}'"${OFF}]"
+    STATUS="[${STATUSCOLOR}${LAST_COMMAND}:${RESPONSECOLOR}${EXITSTATUS}${STATUSCOLOR}:"'${timer_show}s'"${OFF}]"
+    CPU="[${CPUCOLOR}CPU:${CPUPERCENT}${OFF}]"
+    CWD="[${CWDCOLOR}$(pwd)${OFF}]"
+    PROMPT="%> "
+
+    # Donezo
+    PS1="\n${DATE}${STATUS}${CWD}${CPU}\n${PROMPT}"
+  }
+
+# Export the prompt
+  export PROMPT_COMMAND="__prompt_command; $PROMPT_COMMAND"
+
+# -------------------------------
+# 2. ENVIRONMENT
+# -------------------------------
+
+# Set Paths
+  PATH="/bin:${PATH}"
+  PATH="/sbin:${PATH}"
+  PATH="/usr/bin:${PATH}"
+  PATH="/usr/local:${PATH}"
+  PATH="/usr/local/mysql/bin:${PATH}"
+  PATH="/usr/sbin:${PATH}"
+
+# Add Python
+  PATH="/Library/Frameworks/Python.framework/Versions/3.4/bin:${PATH}"
+  export PATH
+
+# NVM
+  export NVM_DIR="/Users/againsley/.nvm"
+  [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+
+# Default Editor
+  export EDITOR=/usr/bin/vim
+
+# Default blocksize for ls, df, du
+  export BLOCKSIZE=1k
+
+# -----------------------------
+# 3. Aliases
+# -----------------------------
+
+  alias cp='cp -iv'                           # Preferred 'cp' implementation
+  alias mv='mv -iv'                           # Preferred 'mv' implementation
+  alias mkdir='mkdir -pv'                     # Preferred 'mkdir' implementation
+  alias ls='ls -FGlAhp'                       # Preferred 'ls' implementation
+  alias less='less -FSRXc'                    # Preferred 'less' implementation
+  alias egrep='egrep -rin --color'            # Preferred 'egrep' implementation
+
+  alias cd..='cd ../'                         # Go back 1 directory level (for fast typers)
+  alias ..='cd ../'                           # Go back 1 directory level
+  alias ...='cd ../../'                       # Go back 2 directory levels
+  alias .3='cd ../../../'                     # Go back 3 directory levels
+  alias .4='cd ../../../../'                  # Go back 4 directory levels
+  alias .5='cd ../../../../../'               # Go back 5 directory levels
+  alias .6='cd ../../../../../../'            # Go back 6 directory levels
+
+  alias home='cd ~'                           # home:         Go Home
+  alias ~="cd ~"                              # ~:            Go Home
+  alias edit='sublime'                        # edit:         Opens any file in sublime editor
+  alias f='open -a Finder ./'                 # f:            Opens current directory in MacOS Finder
+  alias c='clear'                             # c:            Clear terminal display
+  alias which='type -all'                     # which:        Find executables
+  alias path='echo -e ${PATH//:/\\n}'         # path:         Echo all executable Paths
+
+  alias clera='clear'
+  alias cls='clear'
+  alias cear='clear'
+  alias clea='clear'
+  alias lear='clear'
+  alias claer='clear'
+  alias clea='clear'
+
+# Full recursive dir listing
+  alias lr='ls -R | grep ":$" | sed -e '\''s/:$//'\'' -e '\''s/[^-][^\/]*\//--/g'\'' -e '\''s/^/   /'\'' -e '\''s/-/|/'\'' | less'
+
+# mans:   Search manpage given in agument '1' for term given in argument '2' (case insensitive)
+# displays paginated result with colored search terms and two lines surrounding each hit.             Example: mans mplayer codec
+# --------------------------------------------------------------------
+  mans () {
+      man $1 | grep -iC2 --color=always $2 | less
+  }
+
+# nt: Opens a new terminal tab with CWD open
+  function nt {
+    osascript -e "
+    tell application \"System Events\" to tell process \"Terminal\" to keystroke \"t\" using command down
+    tell application \"Terminal\" to do script \"cd '$PWD' \" in selected tab of the front window
+    " > /dev/null 2>&1
+  } 
+
+# -------------------------------
+# 4.F ILE AND FOLDER MANAGEMENT
+# -------------------------------
+
+  zipf () { zip -r "$1".zip "$1" ; }          # zipf:         To create a ZIP archive of a folder
+  alias numFiles='echo $(ls -1 | wc -l)'      # numFiles:     Count of non-hidden files in current dir
+
+# extract:  Extract most know archives with one command
+# ---------------------------------------------------------
+  extract () {
+    if [ -f $1 ] ; 
+    then
+      case $1 in
+        *.tar.bz2)   tar xjf $1     ;;
+        *.tar.gz)    tar xzf $1     ;;
+        *.bz2)       bunzip2 $1     ;;
+        *.rar)       unrar e $1     ;;
+        *.gz)        gunzip $1      ;;
+        *.tar)       tar xf $1      ;;
+        *.tbz2)      tar xjf $1     ;;
+        *.tgz)       tar xzf $1     ;;
+        *.zip)       unzip $1       ;;
+        *.Z)         uncompress $1  ;;
+        *.7z)        7z x $1        ;;
+        *)           echo "'$1' cannot be extracted via extract()" ;;
+      esac
+    else
+        echo "'$1' is not a valid file"
+    fi
+  }
+
+# ---------------------------
+# 5.  SEARCHING
+# ---------------------------
+
+  alias qfind="find . -name "                 # qfind:    Quickly search for file
+  ff () { /usr/bin/find . -name "$@" ; }      # ff:       Find file under the current directory
+  ffs () { /usr/bin/find . -name "$@"'*' ; }  # ffs:      Find file whose name starts with a given string
+  ffe () { /usr/bin/find . -name '*'"$@" ; }  # ffe:      Find file whose name ends with a given string
+
+# spotlight: Search for a file using MacOS Spotlight's metadata
+# -----------------------------------------------------------
+  spotlight () { mdfind "kMDItemDisplayName == '$@'wc"; }
+
+# ---------------------------
+# 6.  PROCESS MANAGEMENT
+# ---------------------------
+
+# findPid: find out the pid of a specified process
+# -----------------------------------------------------
+# Note that the command name can be specified via a regex
+# E.g. findPid '/d$/' finds pids of all processes with names ending in 'd'
+# Without the 'sudo' it will only find processes of the current user
+# -----------------------------------------------------
+  findPid () { lsof -t -c "$@" ; }
+
+# memHogsTop, memHogsPs:  Find memory hogs
+# -----------------------------------------------------
+  alias memHogsTop='top -l 1 -o rsize | head -20'
+  alias memHogsPs='ps wwaxm -o pid,stat,vsize,rss,time,command | head -10'
+
+# cpuHogs:  Find CPU hogs
+# -----------------------------------------------------
+  alias cpu_hogs='ps wwaxr -o pid,stat,%cpu,time,command | head -10'
+
+# topForever:  Continual 'top' listing (every 10 seconds)
+# -----------------------------------------------------
+  alias topForever='top -l 9999999 -s 10 -o cpu'
+
+# ttop:  Recommended 'top' invocation to minimize resources
+# ------------------------------------------------------------
+# Taken from this macosxhints article
+# http://www.macosxhints.com/article.php?story=20060816123853639
+# ------------------------------------------------------------
+  alias ttop="top -R -F -s 10 -o rsize"
+
+# my_ps: List processes owned by my user:
+# ------------------------------------------------------------
+  my_ps() { ps $@ -u $USER -o pid,%cpu,%mem,start,time,bsdtime,command ; }
+
+# ---------------------------
+# 7.  NETWORKING
+# ---------------------------
+
+  alias myip='ifconfig | grep -Eo '\''inet (addr:)?([0-9]*\.){3}[0-9]*'\'' | grep -Eo '\''([0-9]*\.){3}[0-9]*'\'' | grep -v '\''127.0.0.1'\'                    
+                                                      # myip:         Public facing IP Address
+  alias netCons='lsof -i'                             # netCons:      Show all open TCP/IP sockets
+  alias flushDNS='dscacheutil -flushcache'            # flushDNS:     Flush out the DNS Cache
+  alias lsock='sudo /usr/sbin/lsof -i -P'             # lsock:        Display open sockets
+  alias lsockU='sudo /usr/sbin/lsof -nP | grep UDP'   # lsockU:       Display only open UDP sockets
+  alias lsockT='sudo /usr/sbin/lsof -nP | grep TCP'   # lsockT:       Display only open TCP sockets
+  alias ipInfo0='ipconfig getpacket en0'              # ipInfo0:      Get info on connections for en0
+  alias ipInfo1='ipconfig getpacket en1'              # ipInfo1:      Get info on connections for en1
+  alias openPorts='sudo lsof -i | grep LISTEN'        # openPorts:    All listening connections
+  alias showBlocked='sudo ipfw list'                  # showBlocked:  All ipfw rules inc/ blocked IPs
+
+# ii:  display useful host related informaton
+# -------------------------------------------------------------------
+  ii() {
+      echo -e "\nYou are logged on ${RED}$HOST"
+      echo -e "\nAdditionnal information:$NC " ; uname -a
+      echo -e "\n${RED}Users logged on:$NC " ; w -h
+      echo -e "\n${RED}Current date :$NC " ; date
+      echo -e "\n${RED}Machine stats :$NC " ; uptime
+      echo -e "\n${RED}Current network location :$NC " ; scselect
+      #echo -e "\n${RED}Public facing IP Address :$NC " ;myip
+      #echo -e "\n${RED}DNS Configuration:$NC " ; scutil --dns
+      echo
+  }
+
+# ---------------------------------------
+# 8.  SYSTEMS OPERATIONS & INFORMATION
+# ---------------------------------------
+
+# cleanupDS:  Recursively delete .DS_Store files
+# -------------------------------------------------------------------
+  alias cleanupDS="find . -type f -name '*.DS_Store' -ls -delete"
+
+# finderShowHidden:   Show hidden files in Finder
+# finderHideHidden:   Hide hidden files in Finder
+# -------------------------------------------------------------------
+  alias finderShowHidden='defaults write com.apple.finder ShowAllFiles TRUE'
+  alias finderHideHidden='defaults write com.apple.finder ShowAllFiles FALSE'
+
+# cleanupLS:  Clean up LaunchServices to remove duplicates in the "Open With" menu
+# -----------------------------------------------------------------------------------
+  alias cleanupLS="/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user && killall Finder"
 
 
-function __prompt_command() {
+# screensaverDesktop: Run a screensaver on the Desktop
+# -----------------------------------------------------------------------------------
+  alias screensaverDesktop='/System/Library/Frameworks/ScreenSaver.framework/Resources/ScreenSaverEngine.app/Contents/MacOS/ScreenSaverEngine -background'
 
-  # Get last command status
-  # Apparantly this has to happen first
-  EXITSTATUS="$?"
+# ---------------------------------------
+# 9.  WEB DEVELOPMENT
+# ---------------------------------------
 
-  # Font styles
-  DATECOLOR="\[\033[38;5;105m\]"
-  STATUSCOLOR="\[\033[38;5;96m\]"
-  CWDCOLOR="\[\033[38;5;52m\]"
-  PROMPTCOLOR="\[\033[38;5;208m\]"
-  CPUCOLOR="\[\033[38;5;21m\]"
-  BOLD="\[\033[1m\]"
-  OFF="\[\033[m\]"
+  alias apacheEdit='sudo edit /etc/httpd/httpd.conf'      # apacheEdit:       Edit httpd.conf
+  alias apacheRestart='sudo apachectl graceful'           # apacheRestart:    Restart Apache
+  alias editHosts='sudo edit /etc/hosts'                  # editHosts:        Edit /etc/hosts file
+  alias herr='tail /var/log/httpd/error_log'              # herr:             Tails HTTP error logs
+  alias apacheLogs="less +F /var/log/apache2/error_log"   # Apachelogs:   Shows apache error logs
+  httpHeaders () { /usr/bin/curl -I -L $@ ; }             # httpHeaders:      Grabs headers from web page
 
-  # Status colors
-  SUCCESS="\[\033[38;5;70m\]"
-  FAILURE="\[\033[38;5;196m\]"
+# httpDebug:  Download a web page and show info on what took time
+# -------------------------------------------------------------------
+  httpDebug () { 
+    /usr/bin/curl $@ -o /dev/null -w 
+      "dns: %{time_namelookup} connect: %{time_connect} pretransfer: %{time_pretransfer} starttransfer: %{time_starttransfer} total: %{time_total}\n" ; 
+  }
 
-  # Get clean name of last command
-  LAST_COMMAND="$(history 1)"
-  LAST_COMMAND=${LAST_COMMAND:7}
-  LAST_COMMAND="$(echo -e "${LAST_COMMAND}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')"
 
-  # Get status returned by last command
-  if [ "${EXITSTATUS}" -eq 0 ]
-  then
-    RESPONSECOLOR="${STATUSCOLOR}"
-  else
-    RESPONSECOLOR="${FAILURE}"
-  fi
 
-  # Get CPU
-  CPUPERCENT=$(ps -A -o %cpu | awk '{s+=$1} END {print s "%"}')
-
-  # Set prompt parts
-  DATE="[${DATECOLOR}"'\D{%F %T}'"${OFF}]"
-  STATUS="[${STATUSCOLOR}${LAST_COMMAND}:${RESPONSECOLOR}${EXITSTATUS}${STATUSCOLOR}:"'${timer_show}s'"${OFF}]"
-  CPU="[${CPUCOLOR}CPU:${CPUPERCENT}${OFF}]"
-  CWD="[${CWDCOLOR}$(pwd)${OFF}]"
-  PROMPT="%> "
-
-  # Donezo
-  PS1="\n${DATE}${STATUS}${CWD}${CPU}\n${PROMPT}"
-
-}
-
-# export the prompt
-export PROMPT_COMMAND="__prompt_command; $PROMPT_COMMAND"
-
-#ALIASES#
-#########
-
-# LS COMMANDS#
-alias ls='ls -laFGh'
-
-# NAVIGATION
-alias ..='cd ..'
-alias ...='cd ../..'
-alias home='cd ~'
-
-## SSH SPRINGFIELD
-# Moved to ~/config/sshconfig
-
-## SSH PEACH
-# Moved to ~/config/sshconfig
-
-# CLEAR COMMANDS
-alias clera='clear'
-alias cls='clear'
-alias cear='clear'
-alias clea='clear'
-alias lear='clear'
-alias claer='clear'
-alias clea='clear'
-
-# OTHER COMMANDS
-alias egrep='egrep -rin --color'
 
 # CONFIG UPDATES
 alias vimrcup='cp ~/config/vimrc ~/.vimrc'
@@ -107,19 +327,4 @@ alias sshup='cp ~/config/sshrc ~/.ssh/config'
 export CLICOLOR=1
 export LSCOLORS=ExFxCxDxBxegedabagacad
 
-## PATH VARS
-# BASICS
-PATH="/usr/local/mysql/bin:${PATH}"
-PATH="/usr/bin:${PATH}"
-PATH="/bin:${PATH}"
-PATH="/usr/sbin:${PATH}"
-PATH="/sbin:${PATH}"
-PATH="/usr/local/bin:${PATH}"
-PATH="/usr/local/mysql/bin:${PATH}"
-# PYTHON
-PATH="/Library/Frameworks/Python.framework/Versions/3.4/bin:${PATH}"
-export PATH
 
-## NVM
-export NVM_DIR="/Users/againsley/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
