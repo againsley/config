@@ -97,8 +97,8 @@
     PROMPT="${FRAMECOLOR}${BOLD}=>${OFF} "
 
     # Donezo
-    LINE1="${START}${CWD}${CONNECTOR}${STATUS}${CONNECTOR}${CPU}${END}"
-    LINE2="${START}${DATE}${END}${PROMPT}"
+    LINE1="${START}${DATE}${CONNECTOR}${STATUS}${CONNECTOR}${CPU}${END}"
+    LINE2="${START}${CWD}${END}${PROMPT}"
     PS1="\n${LINE1}\n${LINE2}"
   }
 
