@@ -1,109 +1,23 @@
 #  ---------------------------------------------------------------------------
-#  Description:  This file holds all my BASH configurations and aliases
+#  Description: This file holds all my BASH configurations and aliases
 #
-# Sections:
-#  1. Command Prompt
-#  2. Environment
-#  3. Aliases
-#  4. File and Folder Management
-#  5. Searching
-#  6. Process Management
-#  7. Networking
-#  8. System Operations & Information
-#  9. Web Development
-# 10. Config Repo Mgmt
-#
+#  Sections:
+#  1.  Command Prompt
+#  2.  Environment
+#  3.  Aliases
+#  4.  File and Folder Management
+#  5.  Searching
+#  6.  Process Management
+#  7.  Networking
+#  8.  System Operations & Information
+#  9.  Web Development
+#  10. Config Repo Mgmt
 # ---------------------------------------------------------------------------
 
 # -------------------------------
 # 1.  Command Prompt
 # -------------------------------
 
-# Set up command timing
-  function timer_start {
-    timer=${timer:-$SECONDS}
-  }
-
-  function timer_stop {
-    timer_show=$(($SECONDS - $timer))
-    unset timer
-  }
-
-
-# Run the timer
-  trap 'timer_start' DEBUG
-  PROMPT_COMMAND="$PROMPT_COMMAND; timer_stop"
-
-# read/write history immediatly
-  PROMPT_COMMAND="history -a; history -r; $PROMPT_COMMAND"
-
-  function __prompt_command() {
-
-    # Get last command status
-    # Apparantly this has to happen first
-    EXITSTATUS="$?"
-
-    # Font styles
-    FONTCOLOR="\[\033[38;5;94m\]"
-    FRAMECOLOR="\[\033[38;5;047m\]"
-    BOLD="\[\033[1m\]"
-    OFF="\[\033[m\]"
-
-    # Status colors
-    SUCCESS="\[\033[38;5;70m\]"
-    FAILURE="\[\033[38;5;196m\]"
-
-    # Get clean name of last command
-    LAST_COMMAND="$(history 1)"
-    LAST_COMMAND=${LAST_COMMAND:7}
-    LAST_COMMAND="$(echo -e "${LAST_COMMAND}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')"
-
-    # Get status returned by last command
-    if [ "${EXITSTATUS}" -eq 0 ]
-    then
-      RESPONSECOLOR="${FONTCOLOR}"
-    else
-      RESPONSECOLOR="${FAILURE}"
-    fi
-
-    # Get CPU
-    CPUPERCENT=$(ps -A -o %cpu | awk '{s+=$1} END {print s "%"}')
-
-    # Get CWD
-    CURRENTDIR="$(pwd)"
-    CWDLENGTH=19
-    CWDPOS=`expr ${#CURRENTDIR}-$CWDLENGTH`
-
-    if [ "${#CURRENTDIR}" -gt "${CWDLENGTH}" ]
-    then
-      CURRENTDIR="${CURRENTDIR:${CWDPOS}}"
-    else 
-      if [ "${#CURRENTDIR}" -lt "${CWDLENGTH}" ]
-      then
-        #PADS=`expr 0-${CDWPOS}`
-        printf -v CURRENTDIR "%${CWDLENGTH}s" "${CURRENTDIR}"
-      fi
-    fi
-      
-
-    # Set prompt parts
-    DATE="${FONTCOLOR}"'\D{%F %T}'"${OFF}"
-    STATUS="${RESPONSECOLOR}${EXITSTATUS}${OFF}${FONTCOLOR}:"'${timer_show}s'"${OFF}"
-    CPU="${FONTCOLOR}${CPUPERCENT}${OFF}"
-    CWD="${FONTCOLOR}${CURRENTDIR}${OFF}"
-    START="${FRAMECOLOR}[${OFF}"
-    CONNECTOR="${FRAMECOLOR}]=[${OFF}"
-    END="${FRAMECOLOR}]${OFF}"
-    PROMPT="${FRAMECOLOR}${BOLD}=>${OFF} "
-
-    # Donezo
-    LINE1="${START}${DATE}${CONNECTOR}${STATUS}${CONNECTOR}${CPU}${END}"
-    LINE2="${START}${CWD}${END}${PROMPT}"
-    PS1="\n${LINE1}\n${LINE2}"
-  }
-
-# Export the prompt
-  export PROMPT_COMMAND="__prompt_command; $PROMPT_COMMAND"
 
 # -------------------------------
 # 2. ENVIRONMENT
