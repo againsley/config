@@ -34,8 +34,9 @@
   trap 'timer_start' DEBUG
   PROMPT_COMMAND="$PROMPT_COMMAND; timer_stop"
 
-# read/write history immediatly
+# read/write history immediately
   PROMPT_COMMAND="history -a; history -r; $PROMPT_COMMAND"
+  #PROMPT_COMMAND="history -n; history -w; history -c; history -r; $PROMPT_COMMAND"
 
   function __prompt_command() {
 
@@ -108,6 +109,13 @@
 # -------------------------------
 # 2. ENVIRONMENT
 # -------------------------------
+
+# History settings
+  HISTCONTROL=ignoreboth
+  shopt -s histappend
+  HISTSIZE=1000                     # Custom history size
+  HISTFILESIZE=1000000              # 1MB History file limit
+  alias h='history'
 
 # Set Paths
   PATH="/bin:${PATH}"
