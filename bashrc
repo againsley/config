@@ -32,7 +32,7 @@
 
 # Run the timer
   trap 'timer_start' DEBUG
-  PROMPT_COMMAND="$PROMPT_COMMAND; timer_stop"
+  PROMPT_COMMAND="timer_stop"
 
 # read/write history immediatly
   PROMPT_COMMAND="history -a; history -r; $PROMPT_COMMAND"
@@ -134,40 +134,7 @@
 # -----------------------------
 # 3. Aliases
 # -----------------------------
-
-  alias cp='cp -iv'                           # Preferred 'cp' implementation
-  alias mv='mv -iv'                           # Preferred 'mv' implementation
-  alias mkdir='mkdir -pv'                     # Preferred 'mkdir' implementation
-  alias ls='ls -FGlAhp'                       # Preferred 'ls' implementation
-  alias less='less -FSRXc'                    # Preferred 'less' implementation
-  alias egrep='egrep -rin --color'            # Preferred 'egrep' implementation
-
-  alias cd..='cd ../'                         # Go back 1 directory level (for fast typers)
-  alias ..='cd ../'                           # Go back 1 directory level
-  alias ...='cd ../../'                       # Go back 2 directory levels
-  alias .3='cd ../../../'                     # Go back 3 directory levels
-  alias .4='cd ../../../../'                  # Go back 4 directory levels
-  alias .5='cd ../../../../../'               # Go back 5 directory levels
-  alias .6='cd ../../../../../../'            # Go back 6 directory levels
-
-  alias home='cd ~'                           # home:         Go Home
-  alias ~="cd ~"                              # ~:            Go Home
-  alias edit='sublime'                        # edit:         Opens any file in sublime editor
-  alias f='open -a Finder ./'                 # f:            Opens current directory in MacOS Finder
-  alias c='clear'                             # c:            Clear terminal display
-  alias which='type -all'                     # which:        Find executables
-  alias path='echo -e ${PATH//:/\\n}'         # path:         Echo all executable Paths
-
-  alias clera='clear'
-  alias cls='clear'
-  alias cear='clear'
-  alias clea='clear'
-  alias lear='clear'
-  alias claer='clear'
-  alias clea='clear'
-
-# Full recursive dir listing
-  alias lr='ls -R | grep ":$" | sed -e '\''s/:$//'\'' -e '\''s/[^-][^\/]*\//--/g'\'' -e '\''s/^/   /'\'' -e '\''s/-/|/'\'' | less'
+. ./config/aliases
 
 # mans:   Search manpage given in agument '1' for term given in argument '2' (case insensitive)
 # displays paginated result with colored search terms and two lines surrounding each hit.             Example: mans mplayer codec
@@ -185,7 +152,7 @@
   } 
 
 # -------------------------------
-# 4.F ILE AND FOLDER MANAGEMENT
+# 4.FILE AND FOLDER MANAGEMENT
 # -------------------------------
 
   zipf () { zip -r "$1".zip "$1" ; }          # zipf:         To create a ZIP archive of a folder

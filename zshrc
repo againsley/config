@@ -3,6 +3,10 @@ autoload -Uz promptinit
 promptinit
 prompt adam1
 
+# Export the prompt
+  export PROMPT_COMMAND="__prompt_command; $PROMPT_COMMAND"
+
+
 setopt histignorealldups sharehistory
 
 # why would you type 'cd dir' if you could just type 'dir'?
@@ -13,10 +17,6 @@ setopt GLOB_COMPLETE
 setopt NO_CASE_GLOB
 setopt NUMERIC_GLOB_SORT
 setopt EXTENDED_GLOB
-
-# only fools wouldn't do this ;-)
-setopt VI
-export EDITOR="vi"
 
 # Keep 1000 lines of history within the shell and save it to ~/.zsh_history:
 HISTSIZE=1000
@@ -52,21 +52,6 @@ zstyle ':completion:*' auto-description 'specify: %d'
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
-# Aliases
-alias g='egrep --color -inr'
-alias clera='clear'
-alias cls='clear'
-alias cear='clear'
-alias clea='clear'
-alias lear='clear'
-alias claer='clear'
-alias clea='clear'
-
-alias ll='ls --color -la'
-alias ls='pwd; ls --color -FGlAhp'
-alias l='ls --color -l'
-
-alias st='git status'
-alias gl='git log'
-alias glp='git log -p'
-alias gln='git log --name-only'
+# Import Aliases
+# This assumes conifg repo is in same dir as local file. Should make this configurable
+. ./config/aliases
