@@ -1,18 +1,17 @@
 #  ---------------------------------------------------------------------------
-#  Description:  This file holds all my BASH configurations and aliases
+#  Description: This file holds all my BASH configurations and aliases
 #
-# Sections:
-#  1. Command Prompt
-#  2. Environment
-#  3. Aliases
-#  4. File and Folder Management
-#  5. Searching
-#  6. Process Management
-#  7. Networking
-#  8. System Operations & Information
-#  9. Web Development
-# 10. Config Repo Mgmt
-#
+#  Sections:
+#  1.  Command Prompt
+#  2.  Environment
+#  3.  Aliases
+#  4.  File and Folder Management
+#  5.  Searching
+#  6.  Process Management
+#  7.  Networking
+#  8.  System Operations & Information
+#  9.  Web Development
+#  10. Config Repo Mgmt
 # ---------------------------------------------------------------------------
 
 # -------------------------------
@@ -34,8 +33,9 @@
   trap 'timer_start' DEBUG
   PROMPT_COMMAND="timer_stop"
 
-# read/write history immediatly
+# read/write history immediately
   PROMPT_COMMAND="history -a; history -r; $PROMPT_COMMAND"
+  #PROMPT_COMMAND="history -n; history -w; history -c; history -r; $PROMPT_COMMAND"
 
   function __prompt_command() {
 
@@ -108,6 +108,13 @@
 # -------------------------------
 # 2. ENVIRONMENT
 # -------------------------------
+
+# History settings
+  HISTCONTROL=ignoreboth
+  shopt -s histappend
+  HISTSIZE=1000                     # Custom history size
+  HISTFILESIZE=1000000              # 1MB History file limit
+  alias h='history'
 
 # Set Paths
   PATH="/bin:${PATH}"
