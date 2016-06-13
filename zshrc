@@ -4,8 +4,13 @@ promptinit
 prompt adam1
 
 # Export the prompt
-  export PROMPT_COMMAND="__prompt_command; $PROMPT_COMMAND"
+# export PROMPT_COMMAND="__prompt_command; $PROMPT_COMMAND"
 
+# Vi mode
+# bindkey -v
+
+# Emacs mode
+bindkey -e
 
 setopt histignorealldups sharehistory
 
