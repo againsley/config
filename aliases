@@ -46,7 +46,6 @@ alias ~="cd ~"                              # ~:            Go Home
 alias edit='sublime'                        # edit:         Opens any file in sublime editor
 alias f='open -a Finder ./'                 # f:            Opens current directory in MacOS Finder
 alias c='clear'                             # c:            Clear terminal display
-alias which='type -all'                     # which:        Find executables
 alias path='echo -e ${PATH//:/\\n}'         # path:         Echo all executable Paths
 
 alias clera='clear'
