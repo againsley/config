@@ -56,7 +56,8 @@
   # Custom plugins folder: ~/.oh-my-zsh/custom/plugins/
   # Example format: plugins=(rails git textmate ruby lighthouse)
   # Add wisely, as too many plugins slow down shell startup.
-  plugins=(git)
+  . ./config/aliases
+#  plugins=(git)
 
   # Set Paths
   PATH="/bin:${PATH}"
@@ -77,7 +78,7 @@
 # -----------------------------------------------------------------------------
 # 3.  Aliases
 # -----------------------------------------------------------------------------
-  . ./config/aliases
+#  . ./config/aliases
 
   # zsh Specific aliases
   # TODO figure out why this always calls on zsh init
