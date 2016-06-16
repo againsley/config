@@ -71,7 +71,7 @@
 
     # Get CWD
     CURRENTDIR="$(pwd)"
-    CWDLENGTH=19
+    CWDLENGTH=25
     CWDPOS=`expr ${#CURRENTDIR}-$CWDLENGTH`
 
     if [ "${#CURRENTDIR}" -gt "${CWDLENGTH}" ]
@@ -87,6 +87,9 @@
       
 
     # Set prompt parts
+    UPPER_CORNER="${FRAMECOLOR}"'╭─'"${OFF}"
+    LOWER_CORNER="${FRAMECOLOR}"'╰─'"${OFF}"
+    MACHINE="${FONTCOLOR}"'\u@\h'"${OFF}"
     DATE="${FONTCOLOR}"'\D{%F %T}'"${OFF}"
     STATUS="${RESPONSECOLOR}${EXITSTATUS}${OFF}${FONTCOLOR}:"'${timer_show}s'"${OFF}"
     CPU="${FONTCOLOR}${CPUPERCENT}${OFF}"
@@ -97,8 +100,8 @@
     PROMPT="${FRAMECOLOR}${BOLD}=>${OFF} "
 
     # Donezo
-    LINE1="${START}${DATE}${CONNECTOR}${STATUS}${CONNECTOR}${CPU}${END}"
-    LINE2="${START}${CWD}${END}${PROMPT}"
+    LINE1="${UPPER_CORNER}${START}${MACHINE}${CONNECTOR}${DATE}${CONNECTOR}${STATUS}${CONNECTOR}${CPU}${END}"
+    LINE2="${LOWER_CORNER}${START}${CWD}${END}${PROMPT}"
     PS1="\n${LINE1}\n${LINE2}"
   }
 
@@ -142,6 +145,11 @@
 # 3. Aliases
 # -----------------------------
 . ./config/aliases
+
+  # Bash specific aliases (aka things that break zsh)
+
+  # Full recursive dir listing
+  alias lr='ls -R | grep ":$" | sed -e '\''s/:$//'\'' -e '\''s/[^-][^\/]*\//--/g'\'' -e '\''s/^/   /'\'' -e '\''s/-/|/'\'' | less'
 
 # mans:   Search manpage given in agument '1' for term given in argument '2' (case insensitive)
 # displays paginated result with colored search terms and two lines surrounding each hit.             Example: mans mplayer codec

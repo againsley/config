@@ -1,62 +1,92 @@
-# Set up the prompt
-autoload -Uz promptinit
-promptinit
-prompt adam1
+#  ---------------------------------------------------------------------------
+#  Description: This file holds all my BASH configurations and aliases
+#
+#  Sections:
+#  0.  oh-my-zsh
+#  1.  Prompt
+#  2.  Environment
+#  3.  Aliases
+#  4.  File and Folder Management
+#  5.  Searching
+#  6.  Process Management
+#  7.  Networking
+#  8.  System Operations & Information
+#  9.  Web Development
+#  10. Config Repo Mgmt
+#  11. Initialize
+# -----------------------------------------------------------------------------
 
-# Export the prompt
-# export PROMPT_COMMAND="__prompt_command; $PROMPT_COMMAND"
+# -----------------------------------------------------------------------------
+#  0.  OH-MY-ZSH
+# -----------------------------------------------------------------------------
 
-# Vi mode
-# bindkey -v
+  # OMZ HOMEPAGE
+  # https://github.com/robbyrussell/oh-my-zsh/wiki
 
-# Emacs mode
-bindkey -e
+  # Path to your oh-my-zsh installation.
+  export ZSH=$HOME/.oh-my-zsh
 
-setopt histignorealldups sharehistory
 
-# why would you type 'cd dir' if you could just type 'dir'?
-setopt AUTO_CD
+# -----------------------------------------------------------------------------
+#  1.  PROMPT
+# -----------------------------------------------------------------------------
 
-# If we have a glob this will expand it case insensitive
-setopt GLOB_COMPLETE
-setopt NO_CASE_GLOB
-setopt NUMERIC_GLOB_SORT
-setopt EXTENDED_GLOB
+  # Set name of the theme to load.
+  # Look in ~/.oh-my-zsh/themes/
+  ZSH_THEME="adamg"
 
-# Keep 1000 lines of history within the shell and save it to ~/.zsh_history:
-HISTSIZE=1000
-SAVEHIST=1000
-HISTFILE=~/.zsh_history
+# -----------------------------------------------------------------------------
+#  2.  ENVIRONMENT
+# -----------------------------------------------------------------------------
 
-# Use modern completion system
-autoload -Uz compinit
-compinit
+  # _ and - will be interchangeable (sensitive completion must be off
+  HYPHEN_INSENSITIVE="true"
 
-zstyle ':completion:*' auto-description 'specify: %d'
-zstyle ':completion:*' completer _expand _complete _correct _approximate
-zstyle ':completion:*' format 'Completing %d'
-zstyle ':completion:*' group-name ''
-zstyle ':completion:*' menu select=2
-#eval "$(dircolors -b)" # doesn't seem to work on Mac
-zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
-zstyle ':completion:*' list-colors ''
-zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
-zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=* l:|=*'
-zstyle ':completion:*' menu select=long
-zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
-zstyle ':completion:*' use-compctl false
-zstyle ':completion:*' verbose true
-zstyle ':completion:*:descriptions' format '%B%d%b'
-zstyle ':completion:*:messages' format '%d'
-zstyle ':completion:*:warnings' format 'No matches for: %d'
-zstyle ':completion:*' ignore-parents parent pwd
+  # Timestamps on history output
+  HIST_STAMPS="yyyy-mm-dd"
 
-# generate descriptions with magic.
-zstyle ':completion:*' auto-description 'specify: %d'
+  # Uncomment the following line to disable colors in ls.
+  # have to do this otherwise theme-and-appearance.zsh breaks
+  DISABLE_LS_COLORS="true"
 
-zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
-zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
+  # Would you like to use another custom folder than $ZSH/custom?
+  # ZSH_CUSTOM=/path/to/new-custom-folder
 
-# Import Aliases
-# This assumes conifg repo is in same dir as local file. Should make this configurable
-. ./config/aliases
+  # Plugins folder: ~/.oh-my-zsh/plugins/*
+  # Custom plugins folder: ~/.oh-my-zsh/custom/plugins/
+  # Example format: plugins=(rails git textmate ruby lighthouse)
+  # Add wisely, as too many plugins slow down shell startup.
+  plugins=(git)
+
+  # Set Paths
+  PATH="/bin:${PATH}"
+  PATH="/sbin:${PATH}"
+  PATH="/usr/bin:${PATH}"
+  PATH="/usr/local:${PATH}"
+  PATH="/usr/local/mysql/bin:${PATH}"
+  PATH="/usr/sbin:${PATH}"
+
+  # Add Python
+  PATH="/Library/Frameworks/Python.framework/Versions/3.4/bin:${PATH}"
+  export PATH
+
+  # NVM
+  export NVM_DIR="/Users/againsley/.nvm"
+  [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+
+# -----------------------------------------------------------------------------
+# 3.  Aliases
+# -----------------------------------------------------------------------------
+  . ./config/aliases
+
+  # zsh Specific aliases
+  # TODO figure out why this always calls on zsh init
+  # alias colors='for code in {000..255}; do print -P -- "$code: %F{$code}Test%f"; done'
+
+# -----------------------------------------------------------------------------
+# 11. Initialize
+# -----------------------------------------------------------------------------
+
+  # Base OMZ config
+  source $ZSH/oh-my-zsh.sh
+
