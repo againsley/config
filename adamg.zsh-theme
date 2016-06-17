@@ -28,7 +28,7 @@ LOWER_CORNER='%F'${FRAMECOLOR}':$f'
 
 # Get GIT
 ZSH_THEME_GIT_PROMPT_SUFFIX="%f"
-ZSH_THEME_GIT_PROMPT_CLEAN='%f%F'${FRAMECOLOR}'✓%f'
+ZSH_THEME_GIT_PROMPT_CLEAN='%f%F'${HIGHLIGHTCOLOR}'✓%f'
 #ZSH_THEME_GIT_PROMPT_DIRTY='%f%F'${PROMPTCOLOR}'✗%f'
 
 ZSH_THEME_GIT_PROMPT_ADDED='%f%F'${HIGHLIGHTCOLOR}'✚%f'
@@ -54,14 +54,22 @@ precmd() {
     GIT_CLOSE_BRACKET=""
   fi
 
+  # if root display the power!
+  if [[ $UID -eq 0 ]]
+  then
+    ROOT='%f%F'${HIGHLIGHTCOLOR}'⚡%f'
+  else
+    ROOT=""
+  fi
+
   MATCH='Adam'
   HOSTNAME=$HOST
   if [[ "$HOSTNAME" =~ $MATCH ]]
   then
-    MACHINE='%m'
+    MACHINE='%n@%m'
   else
     # Highlight remote machines to be more noticeable
-    MACHINE='%f%F'${HIGHLIGHTCOLOR}'%m%f'
+    MACHINE='%f%F'${HIGHLIGHTCOLOR}'%n@%m%f'
   fi
 
   # Get DATETIME
