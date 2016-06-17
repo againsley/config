@@ -7,8 +7,6 @@ set showmatch
 "Manual file type syntax setting
 autocmd BufNewFile,BufRead *.html.twig   set syntax=html
 autocmd BufNewFile,BufRead *.zsh*        set filetype=zsh
-autocmd BufNewFile,BufRead *.*rc         set filetype=zsh
-
 
 "Tabs
 set shiftwidth=2
@@ -176,3 +174,5 @@ hi User5 ctermfg=015
 hi User7 ctermfg=015
 hi User8 ctermfg=015
 hi User9 ctermfg=015
+
+autocmd Filetype gitcommit setl spell textwidth=80
