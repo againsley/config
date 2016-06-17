@@ -1,3 +1,6 @@
+# Note 2016-06-17 01:17:56 Going to focus on zsh for the time being. Might not
+# keep this bashrc up anymore. We'll see.
+
 #  ---------------------------------------------------------------------------
 #  Description: This file holds all my BASH configurations and aliases
 #
