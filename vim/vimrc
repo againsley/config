@@ -1,0 +1,188 @@
+" Because I always forget
+" <c-g> => ctrl+g
+
+"##############################################################################
+"#  Plugins 
+"##############################################################################
+source $HOME/config/vim/vimrc.plugins
+
+"##############################################################################
+""#  UI/UX
+"##############################################################################
+
+" Enable syntax highlighting
+syntax enable
+colorscheme desert
+set background=dark
+set showmatch
+
+" Manual file type syntax setting
+autocmd BufNewFile,BufRead *.html.twig   set syntax=html
+autocmd BufNewFile,BufRead *.zsh*        set filetype=zsh
+autocmd BufNewFile,BufRead *.json        set filetype=json
+
+" Highlight text past 80 columns
+highlight OverLength ctermbg=017 guibg=#592929
+match OverLength /\%81v.\+/
+
+" Enable hardmode (aka fastmode)
+" This is extra spicy - disables mouse too
+map  <up>    <nop>
+imap <up>    <nop>
+map  <down>  <nop>
+imap <down>  <nop>
+map  <left>  <nop>
+imap <left>  <nop>
+map  <right> <nop>
+imap <right> <nop>
+
+" Make these commonly mistyped commands still work
+command! WQ wq
+command! Wq wq
+command! Wqa wqa
+command! W w
+command! Q q
+
+" Show highlighting groups for current word
+" https://twitter.com/kylegferg/status/697546733602136065
+nmap <c-g> :call <SID>SynStack()<CR>
+function! <SID>SynStack()
+    if !exists("*synstack")
+        return
+    endif
+    echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+endfunc
+
+" qq to record, Q to replay
+nnoremap Q @q
+
+" Make time easy
+:nnoremap <leader>t "=strftime("%F")<CR>P
+:nnoremap <leader>d "=strftime("%F %T")<CR>P
+:nnoremap <leader>h "=strftime("%r %x")<CR>P
+
+" Tabs
+set shiftwidth=2
+set softtabstop=2
+set tabstop=2
+set shiftround
+set expandtab
+
+" EOLs
+set noeol
+set ffs=unix,mac,dos
+
+" Code Folding
+set foldmethod=marker
+set foldmarker={{{,}}}
+
+" Search
+set ignorecase
+set smartcase
+set hlsearch
+set incsearch
+
+" Use :C to clear hlsearch
+command! C nohlsearch
+
+" Swapfiles
+set directory=~/.vimswap
+
+" Mapleader (space)
+let mapleader = "\\"
+let g:mapleader = "\\" 
+
+" Fastmaps
+nmap <leader><leader> :w!<cr>
+nmap <cr><cr> :C<cr>
+
+" Force write readonly files using sudo
+command! WS w !sudo tee %
+
+" Wildmenu
+set wildmenu
+set wildmode=list:longest,full
+
+" Wrap
+set whichwrap+=<,>,h,l
+
+" Toggle
+" http://ddrscott.github.io/blog/2016/vim-toggle-movement/
+" Can use two ways 1. to give a command a first and second
+" action (like 0) or 2. make an action toggle by pressing 
+" same key over again
+function! ToggleMovement(firstOp, thenOp)
+  let pos = getpos('.')
+  execute "normal! " . a:firstOp
+  if pos == getpos('.')
+    execute "normal! " . a:thenOp
+  endif
+endfunction
+
+" 0 goes to first char then first column
+nnoremap <silent> 0 :call ToggleMovement('^', '0')<CR>
+
+" These toggle their respective actions
+nnoremap <silent> ; :call ToggleMovement(';', ',')<CR>
+nnoremap <silent> , :call ToggleMovement(',', ';')<CR>
+nnoremap <silent> H :call ToggleMovement('H', 'L')<CR>
+nnoremap <silent> L :call ToggleMovement('L', 'H')<CR>
+nnoremap <silent> G :call ToggleMovement('G', 'gg')<CR>
+nnoremap <silent> gg :call ToggleMovement('gg', 'G')<CR>
+
+" Smart way to move between windows
+map <C-j> <C-W>j
+map <C-k> <C-W>k
+map <C-h> <C-W>h
+map <C-l> <C-W>l
+
+" Close the current buffer
+map <leader>bd :Bclose<cr>
+
+"Close all the buffers
+map <leader>ba :1,1000 bd!<cr>
+
+"Useful mappings for managing tabs
+map <leader>tn :tabnew<cr>
+map <leader>to :tabonly<cr>
+map <leader>tc :tabclose<cr>
+map <leader>tm :tabmove<cr>
+map <leader>tj :tabn<cr>
+map <leader>tk :tabp<cr>
+
+"Return to last edit position when opening file
+autocmd BufReadPost *
+     \ if line("'\"") > 0 && line("'\"") <= line("$") |
+     \   exe "normal! g`\"" |
+     \ endif
+
+" Pressing <space>ss will toggle and untoggle spell checking
+map <leader>ss :setlocal spell!<cr>
+
+" Toggle HTML escape works undre cursor or for whole highlight
+" via: http://vim.wikia.com/wiki/HTML_entities
+function! HtmlEscape()
+  silent s/&/\&amp;/eg
+  silent s/</\&lt;/eg
+  silent s/>/\&gt;/eg
+endfunction
+
+function! HtmlUnEscape()
+  silent s/&lt;/</eg
+  silent s/&gt;/>/eg
+  silent s/&amp;/\&/eg
+endfunction
+
+map <silent> <Leader>he :call HtmlEscape()<CR>
+map <silent> <Leader>hu :call HtmlUnEscape()<CR>
+
+"##############################################################################
+"#  Status Line
+"##############################################################################
+source $HOME/config/vim/vimrc.status
+
+"##############################################################################
+"#  Miscellaneous
+"##############################################################################
+source $HOME/config/vim/vimrc.misc
+

@@ -1,0 +1,9 @@
+"##############################################################################
+"#  Miscellaneous
+"##############################################################################
+
+" Force nice commit messages
+autocmd Filetype gitcommit setl spell textwidth=80
+
+" Automatically reload vimrc on save
+autocmd! BufWritePost init.vim,vimrc.local,.vimrc so $MYVIMRC
