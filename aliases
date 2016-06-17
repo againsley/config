@@ -16,6 +16,8 @@ alias gl='git log'
 alias glp='git log -p'
 alias gln='git log --name-only'
 alias gst='git status'
+alias gup='git push'
+alias gdn='git pull'
 
 # set some default behaviors
 alias cp='cp -iv'                           # Preferred 'cp' implementation
