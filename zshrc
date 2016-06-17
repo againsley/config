@@ -78,7 +78,7 @@
 # 3.  Aliases
 # -----------------------------------------------------------------------------
   . ./config/aliases
-
+  . ./config/functions
   # zsh Specific aliases
   # TODO figure out why this always calls on zsh init
   # alias colors='for code in {000..255}; do print -P -- "$code: %F{$code}Test%f"; done'
