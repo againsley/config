@@ -31,13 +31,13 @@ let g:currentmode={
 " Automatically change the statusline highlight depending on mode
 function! ChangeStatuslineColor()
   if (mode() =~# '\v(n|no)')
-    exe 'hi! StatusLine ctermfg=008'
+    exe 'hi! StatusLine ctermfg=007'
   elseif (mode() =~# '\v(v|V)' || g:currentmode[mode()] ==# 'V·Block' || get(g:currentmode, mode(), '') ==# 't')
-    exe 'hi! StatusLine ctermfg=005'
+    exe 'hi! StatusLine ctermfg=202'
   elseif (mode() ==# 'i')
-    exe 'hi! StatusLine ctermfg=004'
+    exe 'hi! StatusLine ctermfg=068'
   else
-    exe 'hi! StatusLine ctermfg=006'
+    exe 'hi! StatusLine ctermfg=007'
   endif
 
   return ''
