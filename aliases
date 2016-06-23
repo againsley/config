@@ -27,7 +27,7 @@ alias less='less -FSRXc'                    # Preferred 'less' implementation
 alias egrep='egrep -rin --color'            # Preferred 'egrep' implementation
 
 # ls
-alias ls='pwd; ls -FGlAhp'                  # Preferred 'ls' implementation
+alias ls='echo "CWD: "; pwd; ls -FGlAhp'    # Preferred 'ls' implementation
 alias ll='ls -Gla'
 alias l='ls -Gl'
 
