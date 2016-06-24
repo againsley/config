@@ -36,6 +36,11 @@ Host wtmpos2
   User root
   IdentityFile ~/.ssh/id_rsa
 
+Host wtmemail
+  Hostname smtp.whentomanage.com 
+  User root
+  IdentityFile ~/.ssh/id_rsa
+
 ## PW: Peach
 Host peachdev
   Hostname dev.peachworks.com
