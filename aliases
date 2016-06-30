@@ -42,6 +42,11 @@ alias .6='cd ../../../../../../'            # Go back 6 directory levels
 alias home='cd ~'                           # home:         Go Home
 alias ~="cd ~"                              # ~:            Go Home
 
+# some handy local cd's
+# these will work on my macs, should look for a way to auto customize per machine
+alias cdpan='cd ~/Dropbox/PeachWorks/Panera'
+alias cdsf='cd ~/Dropbox/PeachWorks/Springfield'
+
 # requires sublime in path
 alias edit='sublime'                        # edit:         Opens any file in sublime editor
 alias f='open -a Finder ./'                 # f:            Opens current directory in MacOS Finder
