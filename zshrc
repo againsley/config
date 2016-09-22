@@ -77,6 +77,9 @@
   export NVM_DIR="/Users/againsley/.nvm"
   [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
+  # We like Vim
+  export EDITOR=vim
+
 # -----------------------------------------------------------------------------
 # 3.  Aliases
 # -----------------------------------------------------------------------------
