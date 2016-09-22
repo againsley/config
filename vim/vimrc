@@ -4,7 +4,8 @@
 "##############################################################################
 "#  Plugins 
 "##############################################################################
-source $HOME/config/vim/vimrc.plugins
+"TODO: Debug this - including it breaks syntax highlighting 2016-09-14
+"source $HOME/config/vim/vimrc.plugins
 
 "##############################################################################
 ""#  UI/UX
@@ -27,14 +28,14 @@ match OverLength /\%81v.\+/
 
 " Enable hardmode (aka fastmode)
 " This is extra spicy - disables mouse too
-map  <up>    <nop>
-imap <up>    <nop>
-map  <down>  <nop>
-imap <down>  <nop>
-map  <left>  <nop>
-imap <left>  <nop>
-map  <right> <nop>
-imap <right> <nop>
+"map  <up>    <nop>
+"imap <up>    <nop>
+"map  <down>  <nop>
+"imap <down>  <nop>
+"map  <left>  <nop>
+"imap <left>  <nop>
+"map  <right> <nop>
+"imap <right> <nop>
 
 " Make these commonly mistyped commands still work
 command! WQ wq
@@ -185,4 +186,3 @@ source $HOME/config/vim/vimrc.status
 "#  Miscellaneous
 "##############################################################################
 source $HOME/config/vim/vimrc.misc
-
