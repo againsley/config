@@ -63,11 +63,8 @@
   PATH="/sbin:${PATH}"
   PATH="/usr/bin:${PATH}"
   PATH="/usr/local:${PATH}"
-  PATH="/usr/local/php5/bin:${PATH}"
   PATH="/usr/local/mysql/bin:${PATH}"
   PATH="/usr/sbin:${PATH}"
-  PATH="/Users/againsley/.nvm/versions/node/v4.2.4/lib:${PATH}"
-
 
   # Add Python
   PATH="/Library/Frameworks/Python.framework/Versions/3.4/bin:${PATH}"
