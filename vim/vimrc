@@ -20,6 +20,7 @@ set showmatch
 autocmd BufNewFile,BufRead *.html.twig   set syntax=html
 autocmd BufNewFile,BufRead *.zsh*        set filetype=zsh
 autocmd BufNewFile,BufRead *.json        set filetype=json
+autocmd BufNewFile,BufRead *.less        set filetype=css
 
 " Highlight text past 80 columns
 highlight OverLength ctermbg=017 guibg=#592929
@@ -27,14 +28,14 @@ match OverLength /\%81v.\+/
 
 " Enable hardmode (aka fastmode)
 " This is extra spicy - disables mouse too
-map  <up>    <nop>
-imap <up>    <nop>
-map  <down>  <nop>
-imap <down>  <nop>
-map  <left>  <nop>
-imap <left>  <nop>
-map  <right> <nop>
-imap <right> <nop>
+" map  <up>    <nop>
+" imap <up>    <nop>
+" map  <down>  <nop>
+" imap <down>  <nop>
+" map  <left>  <nop>
+" imap <left>  <nop>
+" map  <right> <nop>
+" imap <right> <nop>
 
 " Make these commonly mistyped commands still work
 command! WQ wq
