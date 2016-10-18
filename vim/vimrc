@@ -4,7 +4,7 @@
 "##############################################################################
 "#  Plugins 
 "##############################################################################
-source $HOME/config/vim/vimrc.plugins
+"source $HOME/config/vim/vimrc.plugins
 
 "##############################################################################
 ""#  UI/UX
@@ -67,7 +67,7 @@ set shiftwidth=2
 set softtabstop=2
 set tabstop=2
 set shiftround
-set expandtab
+"set expandtab
 
 " EOLs
 set noeol
