@@ -14,7 +14,7 @@ alias clea='clear'
 alias gd='git diff'
 alias gl='git log'
 alias glp='git log -p'
-alias gln='git log --name-only'
+alias gln='git log --name-status'
 alias gst='git status'
 alias gup='git push'
 alias gdn='git pull'
@@ -27,7 +27,7 @@ alias less='less -FSRXc'                    # Preferred 'less' implementation
 alias egrep='egrep -rin --color'            # Preferred 'egrep' implementation
 
 # ls
-alias ls='echo "CWD: "; pwd; ls -FGlAhp'    # Preferred 'ls' implementation
+alias ls='echo "CWD:"; pwd; echo "\nLS:"; ls -FGlAhp'    # Preferred 'ls' implementation
 alias ll='ls -Gla'
 alias l='ls -Gl'
 
@@ -63,3 +63,9 @@ alias clea='clear'
 
 # Full recursive dir listing
 alias lr='ls -R | grep ":$" | sed -e '\''s/:$//'\'' -e '\''s/[^-][^\/]*\//--/g'\'' -e '\''s/^/   /'\'' -e '\''s/-/|/'\'' | less'
+
+# Get around quickly
+alias root='cd /Library/WebServer/Documents/'
+alias SPC='cd /Library/WebServer/Documents/SPC/chocolate-malt-git/Schaaf/trunk/'
+#alias mongo='cd /Library/WebServer/mongodb/'
+alias lfl='cd /Library/WebServer/Documents/lflmap'

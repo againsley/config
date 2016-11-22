@@ -63,6 +63,7 @@
   PATH="/sbin:${PATH}"
   PATH="/usr/bin:${PATH}"
   PATH="/usr/local:${PATH}"
+  PATH="/usr/local/mongodb:${PATH}"
   PATH="/usr/local/mysql/bin:${PATH}"
   PATH="/usr/sbin:${PATH}"
 

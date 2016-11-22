@@ -117,7 +117,7 @@
 
 # History settings
   HISTCONTROL=ignoreboth
-  shopt -s histappend
+  #shopt -s histappend # turns out I hate this like getting punched while I have the flu
   HISTSIZE=1000                     # Custom history size
   HISTFILESIZE=1000000              # 1MB History file limit
   alias h='history'

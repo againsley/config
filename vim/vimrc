@@ -17,7 +17,7 @@ set background=dark
 set showmatch
 
 " Manual file type syntax setting
-autocmd BufNewFile,BufRead *.html.twig   set syntax=html
+autocmd BufNewFile,BufRead *.twig        set syntax=html
 autocmd BufNewFile,BufRead *.zsh*        set filetype=zsh
 autocmd BufNewFile,BufRead *.json        set filetype=json
 autocmd BufNewFile,BufRead *.less        set filetype=css
