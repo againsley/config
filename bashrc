@@ -47,19 +47,15 @@
     EXITSTATUS="$?"
 
     # Font styles
-    FONTCOLOR="\[\033[38;5;94m\]"
+    FONTCOLOR="\[\033[38;5;214m\]"
     FRAMECOLOR="\[\033[38;5;047m\]"
+    PROMPTCOLOR="\[\033[38;5;196m\]"
     BOLD="\[\033[1m\]"
     OFF="\[\033[m\]"
 
     # Status colors
     SUCCESS="\[\033[38;5;70m\]"
     FAILURE="\[\033[38;5;196m\]"
-
-    # Get clean name of last command
-    LAST_COMMAND="$(history 1)"
-    LAST_COMMAND=${LAST_COMMAND:7}
-    LAST_COMMAND="$(echo -e "${LAST_COMMAND}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')"
 
     # Get status returned by last command
     if [ "${EXITSTATUS}" -eq 0 ]
@@ -74,37 +70,22 @@
 
     # Get CWD
     CURRENTDIR="$(pwd)"
-    CWDLENGTH=25
-    CWDPOS=`expr ${#CURRENTDIR}-$CWDLENGTH`
-
-    if [ "${#CURRENTDIR}" -gt "${CWDLENGTH}" ]
-    then
-      CURRENTDIR="${CURRENTDIR:${CWDPOS}}"
-    else 
-      if [ "${#CURRENTDIR}" -lt "${CWDLENGTH}" ]
-      then
-        #PADS=`expr 0-${CDWPOS}`
-        printf -v CURRENTDIR "%${CWDLENGTH}s" "${CURRENTDIR}"
-      fi
-    fi
-      
 
     # Set prompt parts
-    UPPER_CORNER="${FRAMECOLOR}"'╭─'"${OFF}"
-    LOWER_CORNER="${FRAMECOLOR}"'╰─'"${OFF}"
     MACHINE="${FONTCOLOR}"'\u@\h'"${OFF}"
-    DATE="${FONTCOLOR}"'\D{%F %T}'"${OFF}"
+    DATE="${FONTCOLOR}"'\D{%F}'"${OFF}"
+    TIME="${FONTCOLOR}"'\D{%T}'"${OFF}"
     STATUS="${RESPONSECOLOR}${EXITSTATUS}${OFF}${FONTCOLOR}:"'${timer_show}s'"${OFF}"
     CPU="${FONTCOLOR}${CPUPERCENT}${OFF}"
     CWD="${FONTCOLOR}${CURRENTDIR}${OFF}"
     START="${FRAMECOLOR}[${OFF}"
-    CONNECTOR="${FRAMECOLOR}]=[${OFF}"
+    CONNECTOR="${FRAMECOLOR}][${OFF}"
     END="${FRAMECOLOR}]${OFF}"
-    PROMPT="${FRAMECOLOR}${BOLD}=>${OFF} "
+    PROMPT="${PROMPTCOLOR}${BOLD}%>${OFF} "
 
     # Donezo
-    LINE1="${UPPER_CORNER}${START}${MACHINE}${CONNECTOR}${DATE}${CONNECTOR}${STATUS}${CONNECTOR}${CPU}${END}"
-    LINE2="${LOWER_CORNER}${START}${CWD}${END}${PROMPT}"
+    LINE1="${START}${DATE}${CONNECTOR}${MACHINE}${CONNECTOR}${STATUS}${CONNECTOR}${CPU}${CONNECTOR}${CWD}${END}"
+    LINE2="${START}${TIME}${END}${PROMPT}"
     PS1="\n${LINE1}\n${LINE2}"
   }
 
@@ -167,7 +148,7 @@
     tell application \"System Events\" to tell process \"Terminal\" to keystroke \"t\" using command down
     tell application \"Terminal\" to do script \"cd '$PWD' \" in selected tab of the front window
     " > /dev/null 2>&1
-  } 
+  }
 
 # -------------------------------
 # 4.FILE AND FOLDER MANAGEMENT
@@ -179,7 +160,7 @@
 # extract:  Extract most know archives with one command
 # ---------------------------------------------------------
   extract () {
-    if [ -f $1 ] ; 
+    if [ -f $1 ] ;
     then
       case $1 in
         *.tar.bz2)   tar xjf $1     ;;
@@ -253,7 +234,7 @@
 # 7.  NETWORKING
 # ---------------------------
 
-  alias myip='ifconfig | grep -Eo '\''inet (addr:)?([0-9]*\.){3}[0-9]*'\'' | grep -Eo '\''([0-9]*\.){3}[0-9]*'\'' | grep -v '\''127.0.0.1'\'                    
+  alias myip='ifconfig | grep -Eo '\''inet (addr:)?([0-9]*\.){3}[0-9]*'\'' | grep -Eo '\''([0-9]*\.){3}[0-9]*'\'' | grep -v '\''127.0.0.1'\'
                                                       # myip:         Public facing IP Address
   alias netCons='lsof -i'                             # netCons:      Show all open TCP/IP sockets
   alias flushDNS='dscacheutil -flushcache'            # flushDNS:     Flush out the DNS Cache
@@ -315,9 +296,9 @@
 
 # httpDebug:  Download a web page and show info on what took time
 # -------------------------------------------------------------------
-  httpDebug () { 
-    /usr/bin/curl $@ -o /dev/null -w 
-      "dns: %{time_namelookup} connect: %{time_connect} pretransfer: %{time_pretransfer} starttransfer: %{time_starttransfer} total: %{time_total}\n" ; 
+  httpDebug () {
+    /usr/bin/curl $@ -o /dev/null -w
+      "dns: %{time_namelookup} connect: %{time_connect} pretransfer: %{time_pretransfer} starttransfer: %{time_starttransfer} total: %{time_total}\n" ;
   }
 
 
