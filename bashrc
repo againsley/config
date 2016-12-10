@@ -37,7 +37,7 @@
   PROMPT_COMMAND="timer_stop"
 
 # read/write history immediately
-  PROMPT_COMMAND="history -a; history -r; $PROMPT_COMMAND"
+  #PROMPT_COMMAND="history -a; history -r; $PROMPT_COMMAND"
   #PROMPT_COMMAND="history -n; history -w; history -c; history -r; $PROMPT_COMMAND"
 
   function __prompt_command() {

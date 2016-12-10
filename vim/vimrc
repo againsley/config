@@ -2,7 +2,7 @@
 " <c-g> => ctrl+g
 
 "##############################################################################
-"#  Plugins 
+"#  Plugins
 "##############################################################################
 "source $HOME/config/vim/vimrc.plugins
 
@@ -67,7 +67,7 @@ set shiftwidth=2
 set softtabstop=2
 set tabstop=2
 set shiftround
-"set expandtab
+set expandtab
 
 " EOLs
 set noeol
@@ -91,7 +91,7 @@ set directory=~/.vimswap
 
 " Mapleader (space)
 let mapleader = "\\"
-let g:mapleader = "\\" 
+let g:mapleader = "\\"
 
 " Fastmaps
 nmap <leader><leader> :w!<cr>
@@ -110,7 +110,7 @@ set whichwrap+=<,>,h,l
 " Toggle
 " http://ddrscott.github.io/blog/2016/vim-toggle-movement/
 " Can use two ways 1. to give a command a first and second
-" action (like 0) or 2. make an action toggle by pressing 
+" action (like 0) or 2. make an action toggle by pressing
 " same key over again
 function! ToggleMovement(firstOp, thenOp)
   let pos = getpos('.')
@@ -157,6 +157,9 @@ autocmd BufReadPost *
      \   exe "normal! g`\"" |
      \ endif
 
+"Remove trailing whitespace when saving
+autocmd BufWritePre * %s/\s\+$//e
+
 " Pressing <space>ss will toggle and untoggle spell checking
 map <leader>ss :setlocal spell!<cr>
 
@@ -186,4 +189,4 @@ source $HOME/config/vim/vimrc.status
 "#  Miscellaneous
 "##############################################################################
 source $HOME/config/vim/vimrc.misc
-
+set clipboard=unnamed "Yank to clipboard

@@ -12,6 +12,7 @@ alias clea='clear'
 
 # git what haves ya
 alias gd='git diff'
+alias gdw='git diff -w'
 alias gl='git log'
 alias glp='git log -p'
 alias gln='git log --name-status'
