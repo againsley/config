@@ -13,12 +13,20 @@ alias clea='clear'
 # git what haves ya
 alias gd='git diff'
 alias gdw='git diff -w'
+alias gdm='git diff master'
 alias gl='git log'
 alias glp='git log -p'
 alias gln='git log --name-status'
 alias gst='git status'
 alias gup='git push'
 alias gdn='git pull'
+alias gb='git branch'
+alias gba='git branch -a'
+
+# lastpass
+alias lpls='lpass ls'
+alias lpsh='lpass show'
+alias lpsp='lpass show -c --password'
 
 # set some default behaviors
 alias cp='cp -iv'                           # Preferred 'cp' implementation
@@ -28,7 +36,8 @@ alias less='less -FSRXc'                    # Preferred 'less' implementation
 alias egrep='egrep -rin --color'            # Preferred 'egrep' implementation
 
 # ls
-alias ls='echo "CWD:"; pwd; echo "\nLS:"; ls -FGlAhp'    # Preferred 'ls' implementation
+#alias ls='echo "CWD:"; pwd; echo "\nLS:"; ls -FGlAhp'    # Preferred 'ls' implementation
+alias ls='ls -FGlAhp'
 alias ll='ls -Gla'
 alias l='ls -Gl'
 
@@ -70,3 +79,7 @@ alias root='cd /Library/WebServer/Documents/'
 alias SPC='cd /Library/WebServer/Documents/SPC/chocolate-malt-git/Schaaf/trunk/'
 #alias mongo='cd /Library/WebServer/mongodb/'
 alias lfl='cd /Library/WebServer/Documents/lflmap'
+
+# All your ssh are belong to me
+alias cmalt='ssh cmalt@ftp.schaafpc.com -t "cd ../cmalt-stg.schaafpc.com/CI_application; bash --login"'
+alias tws='ssh -p51985 adam@weldingschool.com'
