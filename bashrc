@@ -311,5 +311,3 @@ alias sshup='cp ~/config/sshrc ~/.ssh/config'
 # COLOR SCHEME
 export CLICOLOR=1
 export LSCOLORS=ExFxCxDxBxegedabagacad
-
-
