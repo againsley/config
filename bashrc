@@ -96,6 +96,10 @@
 # 2. ENVIRONMENT
 # -------------------------------
 
+# COLOR SCHEME
+export CLICOLOR=1
+export LSCOLORS=ExFxCxDxBxegedabagacad
+
 # History settings
   HISTCONTROL=ignoreboth
   #shopt -s histappend # turns out I hate this like getting punched while I have the flu
@@ -149,6 +153,10 @@
     tell application \"Terminal\" to do script \"cd '$PWD' \" in selected tab of the front window
     " > /dev/null 2>&1
   }
+
+# Load/Overwrite local configs
+alias vimrcup='cp ~/config/vimrc ~/.vimrc'
+alias sshup='cp ~/config/sshrc ~/.ssh/config'
 
 # -------------------------------
 # 4.FILE AND FOLDER MANAGEMENT
@@ -302,10 +310,4 @@
 
 
 
-# Load/Overwrite local configs
-alias vimrcup='cp ~/config/vimrc ~/.vimrc'
-alias sshup='cp ~/config/sshrc ~/.ssh/config'
 
-# COLOR SCHEME
-export CLICOLOR=1
-export LSCOLORS=ExFxCxDxBxegedabagacad
