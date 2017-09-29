@@ -255,8 +255,7 @@
       echo -e "\n${RED}Current date :$NC " ; date
       echo -e "\n${RED}Machine stats :$NC " ; uptime
       echo -e "\n${RED}Current network location :$NC " ; scselect
-      #echo -e "\n${RED}Public facing IP Address :$NC " ;myip
-      #echo -e "\n${RED}DNS Configuration:$NC " ; scutil --dns
+      echo -e "\n${RED}Public facing IP Address :$NC " ;myip
       echo
   }
 
@@ -304,7 +303,7 @@
 
 
 
-# CONFIG UPDATES
+# Load/Overwrite local configs
 alias vimrcup='cp ~/config/vimrc ~/.vimrc'
 alias sshup='cp ~/config/sshrc ~/.ssh/config'
 
