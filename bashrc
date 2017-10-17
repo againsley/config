@@ -306,8 +306,3 @@ alias sshup='cp ~/config/sshrc ~/.ssh/config'
   httpDebug () {
     /usr/bin/curl $@ -o /dev/null -w "\n\ndns: %{time_namelookup}\nconnect: %{time_connect}\npretransfer: %{time_pretransfer}\nstarttransfer: %{time_starttransfer}\ntotal: %{time_total}\n" ;
   }
-
-
-
-
-

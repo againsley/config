@@ -14,9 +14,6 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 " ### Add plugins BELOW here
 
-" vim-json better json highlighting
-Plugin 'elzr/vim-json'
-
 " Indent Guides
 Plugin 'nathanaelkane/vim-indent-guides'
 
