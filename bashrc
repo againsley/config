@@ -155,7 +155,7 @@ export LSCOLORS=ExFxCxDxBxegedabagacad
   }
 
 # Load/Overwrite local configs
-alias vimrcup='cp ~/config/vimrc ~/.vimrc'
+alias vimrcup='cp ~/config/vim/vimrc ~/.vimrc'
 alias sshup='cp ~/config/sshrc ~/.ssh/config'
 
 # -------------------------------
