@@ -18,7 +18,7 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'nathanaelkane/vim-indent-guides'
 
 " vim-json
-Plugin 'elzr/vim-json'
+" Plugin 'elzr/vim-json'
 
 " vim-ccs-color
 Plugin 'ap/vim-css-color'

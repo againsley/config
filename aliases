@@ -38,7 +38,8 @@ alias g='egrep'
 
 # ls
 #alias ls='echo "CWD:"; pwd; echo "\nLS:"; ls -FGlAhp'    # Preferred 'ls' implementation
-alias ls='ls -FGlAhp'
+alias lsimple='ls'
+alias ls='ls -FlAhp'
 alias ll='ls -Gla'
 alias l='ls -Gl'
 
