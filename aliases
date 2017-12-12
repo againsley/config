@@ -77,3 +77,6 @@ alias clea='clear'
 
 # Full recursive dir listing
 alias lr='ls -R | grep ":$" | sed -e '\''s/:$//'\'' -e '\''s/[^-][^\/]*\//--/g'\'' -e '\''s/^/   /'\'' -e '\''s/-/|/'\'' | less'
+
+# This works on Ubuntu, not Mac - copy and paste into .bashrc to use on those machines
+#alias ps='ps -eHo user,pid,ppid,sess,lstart,cmd'
