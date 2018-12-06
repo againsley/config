@@ -28,6 +28,9 @@ alias lpls='lpass ls'
 alias lpsh='lpass show'
 alias lpsp='lpass show -c --password'
 
+# Sublime Text 3
+alias st='sublime'
+
 # set some default behaviors
 alias cp='cp -iv'                           # Preferred 'cp' implementation
 alias mv='mv -iv'                           # Preferred 'mv' implementation
