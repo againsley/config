@@ -1,4 +1,7 @@
-# How many ways can I mispell clear
+#######
+# clear
+#######
+
 alias clera='clear'
 alias cls='clear'
 alias cear='clear'
@@ -7,79 +10,88 @@ alias lear='clear'
 alias claer='clear'
 alias clea='clear'
 
+###################
 # git what haves ya
+###################
+
+# git diff
 alias gd='git diff'
 alias gdw='git diff -w'
 alias gdm='git diff master'
 alias gdmn='git diff master --name-status'
+
+# git log
 alias gl='git log'
 alias glp='git log -p'
 alias gln='git log --name-status'
 alias gst='git status'
+
+# git actions
 alias gup='git push'
 alias gdn='git pull'
 alias gb='git branch'
 alias gba='git branch -a'
 alias gc='git checkout'
 alias gcm='git checkout master'
+alias gm='git merge'
+alias gmm='git merge master'
 
-# lastpass
+##########
+# LastPass
+##########
+
 alias lpls='lpass ls'
 alias lpsh='lpass show'
 alias lpsp='lpass show -c --password'
 
+################
 # Sublime Text 3
+################
+
 alias st='sublime'
 
-# set some default behaviors
-alias cp='cp -iv'                           # Preferred 'cp' implementation
-alias mv='mv -iv'                           # Preferred 'mv' implementation
-alias mkdir='mkdir -pv'                     # Preferred 'mkdir' implementation
-alias less='less -FSRXc'                    # Preferred 'less' implementation
-alias egrep='egrep -rin --color'            # Preferred 'egrep' implementation
-alias g='egrep'
+####################
+# Preferred defaults
+####################
 
-# ls
-#alias ls='echo "CWD:"; pwd; echo "\nLS:"; ls -FGlAhp'    # Preferred 'ls' implementation
-alias lsimple='ls'
-alias ls='ls -FlAhp'
-alias ll='ls -Gla'
-alias l='ls -Gl'
+alias cp='cp -iv'               # -interactive -verbose
+alias mv='mv -iv'               # -interactive -verbose
+alias mkdir='mkdir -pv'         # -path -verbose
+alias less='less -FSRXc'        # -scroll(F) -truncate(S) -color(R)
+alias egrep='egrep --color'     # preferred default egrep
+alias g='egrep -rin --color'    # -recursive -ignore-case -line-numbers
+alias ls='ls -FlAh'            # -file-types(F) -long(l) -all(A) -show-units(h)
 
-# cd
-alias cd..='cd ../'                         # Go back 1 directory level (for fast typers)
-alias ..='cd ../'                           # Go back 1 directory level
-alias ...='cd ../../'                       # Go back 2 directory levels
-alias .3='cd ../../../'                     # Go back 3 directory levels
-alias .4='cd ../../../../'                  # Go back 4 directory levels
-alias .5='cd ../../../../../'               # Go back 5 directory levels
-alias .6='cd ../../../../../../'            # Go back 6 directory levels
-alias home='cd ~'                           # home:         Go Home
-alias ~="cd ~"                              # ~:            Go Home
+##############
+# ls breakouts
+##############
+rlias lsimple='ls'              # in case we need no frills
+alias lss='lsimple'             # quicker simple ls
+alias ll='ls -Gla'              # -color(G) -long(l) -dot-directories(a)
+alias l='ls -Gl'                # -color(G) -long(l)
 
-# some handy local cd's
-# these will work on my macs, should look for a way to auto customize per machine
-alias cdpan='cd ~/Dropbox/PeachWorks/Panera'
-alias cdsf='cd ~/Dropbox/PeachWorks/Springfield'
+##############
+# cd breakouts
+##############
 
-# requires sublime in path
+alias cd..='cd ../'                # Go back 1 directory level (for fast typers)
+alias ..='cd ../'                  # Go back 1 directory level
+alias ...='cd ../../'              # Go back 2 directory levels
+alias .3='cd ../../../'            # Go back 3 directory levels
+alias .4='cd ../../../../'         # Go back 4 directory levels
+alias .5='cd ../../../../../'      # Go back 5 directory levels
+alias .6='cd ../../../../../../'   # Go back 6 directory levels
+alias home='cd ~'                  # home
+alias ~="cd ~"                     # home
+
+####################################
+# Apps (requires executable in path)
+####################################
+
 alias edit='sublime'                        # edit:         Opens any file in sublime editor
 alias tw='open -a /Applications/TextWrangler.app'
 alias f='open -a Finder ./'                 # f:            Opens current directory in MacOS Finder
 alias path='echo -e ${PATH//:/\\n}'         # path:         Echo all executable Paths
-
-# Because I can't type
-alias c='clear'
-alias clera='clear'
-alias cls='clear'
-alias cear='clear'
-alias clea='clear'
-alias lear='clear'
-alias claer='clear'
-alias clea='clear'
-
-# Full recursive dir listing
-alias lr='ls -R | grep ":$" | sed -e '\''s/:$//'\'' -e '\''s/[^-][^\/]*\//--/g'\'' -e '\''s/^/   /'\'' -e '\''s/-/|/'\'' | less'
 
 # This works on Ubuntu, not Mac - copy and paste into .bashrc to use on those machines
 #alias ps='ps -eHo user,pid,ppid,sess,lstart,cmd'
