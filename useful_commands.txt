@@ -1,0 +1,6 @@
+Tips:
+prepend arguments with '\' to override alias
+
+Commands:
+#find 'forti' in running process list
+\ps aux | grep forti
