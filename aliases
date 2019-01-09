@@ -29,7 +29,7 @@ alias lpsh='lpass show'
 alias lpsp='lpass show -c --password'
 
 # set some default behaviors
-alias cp='cp -iv'                           # Preferred 'cp' implementation
+alias cpi='cp -iv'                          # Interactive 'cp' implementation
 alias mv='mv -iv'                           # Preferred 'mv' implementation
 alias mkdir='mkdir -pv'                     # Preferred 'mkdir' implementation
 alias less='less -FSRXc'                    # Preferred 'less' implementation
