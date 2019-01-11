@@ -65,7 +65,7 @@ alias ls='ls -FlAh'            # -file-types(F) -long(l) -all(A) -show-units(h)
 ##############
 # ls breakouts
 ##############
-rlias lsimple='ls'              # in case we need no frills
+alias lsimple='ls'              # in case we need no frills
 alias lss='lsimple'             # quicker simple ls
 alias ll='ls -Gla'              # -color(G) -long(l) -dot-directories(a)
 alias l='ls -Gl'                # -color(G) -long(l)
