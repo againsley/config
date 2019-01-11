@@ -294,6 +294,7 @@ alias sshup='cp ~/config/sshrc ~/.ssh/config'
 # 9.  WEB DEVELOPMENT
 # ---------------------------------------
 
+  alias lsvhosts="apache2ctl -S | grep namevhost | awk -F \" \" \"{ print \$4 }\""
   alias apacheEdit='sudo edit /etc/httpd/httpd.conf'      # apacheEdit:       Edit httpd.conf
   alias apacheRestart='sudo apachectl graceful'           # apacheRestart:    Restart Apache
   alias editHosts='sudo edit /etc/hosts'                  # editHosts:        Edit /etc/hosts file

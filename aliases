@@ -44,6 +44,7 @@ alias lpls='lpass ls'
 alias lpsh='lpass show'
 alias lpsp='lpass show -c --password'
 
+# requires sublime in path
 ################
 # Sublime Text 3
 ################
@@ -54,13 +55,14 @@ alias st='sublime'
 # Preferred defaults
 ####################
 
-alias cp='cp -iv'               # -interactive -verbose
+alias cp='cp -v'                # preferred default cp
+alias cpi='cp -iv'              # -interactive -verbose
 alias mv='mv -iv'               # -interactive -verbose
 alias mkdir='mkdir -pv'         # -path -verbose
 alias less='less -FSRXc'        # -scroll(F) -truncate(S) -color(R)
 alias egrep='egrep --color'     # preferred default egrep
 alias g='egrep -rin --color'    # -recursive -ignore-case -line-numbers
-alias ls='ls -FlAh'            # -file-types(F) -long(l) -all(A) -show-units(h)
+alias ls='ls -FlAh'             # -file-types(F) -long(l) -all(A) -show-units(h)
 
 ##############
 # ls breakouts
