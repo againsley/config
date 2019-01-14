@@ -35,6 +35,7 @@ alias gc='git checkout'
 alias gcm='git checkout master'
 alias gm='git merge'
 alias gmm='git merge master'
+alias gundolastcommit='git reset HEAD~'
 
 ##########
 # LastPass
@@ -94,6 +95,7 @@ alias edit='sublime'                        # edit:         Opens any file in su
 alias tw='open -a /Applications/TextWrangler.app'
 alias f='open -a Finder ./'                 # f:            Opens current directory in MacOS Finder
 alias path='echo -e ${PATH//:/\\n}'         # path:         Echo all executable Paths
+alias codescr='code ~/Desktop/scratch.txt'
 
 # This works on Ubuntu, not Mac - copy and paste into .bashrc to use on those machines
 #alias ps='ps -eHo user,pid,ppid,sess,lstart,cmd'
