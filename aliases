@@ -9,6 +9,7 @@ alias clea='clear'
 alias lear='clear'
 alias claer='clear'
 alias clea='clear'
+alias cl='clear'
 
 ###################
 # git what haves ya
