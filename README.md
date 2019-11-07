@@ -1,10 +1,11 @@
 Configuration Repo
 ==================
 Various configuration files and docs. Main purpose is to allow relatively quick
-environment set up. Should generally work on OS X and Linux.
+environment set up. Should generally work on OS X and Linux. Works on Windows
+ConEmu + Git Bash.
 
 ## Getting started
-> Assumes Git and Vim are installed
+> Assumes Git, Vim, and cURL are installed
 
 1. git clone git@github.com:againsley/config.git
 2. git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
@@ -18,35 +19,39 @@ environment set up. Should generally work on OS X and Linux.
 
 * review for specifics on this machine
 
-## Programs to install
+## All OS's
 LastPass
 Chrome
 vim
-git
-iTerm2
-Spectacle
-Alfred
 Dropbox
 Slack
 Filezilla
 Firefox
 Forticlient
-Skitch
 Spotify
 Steam
 Sublime Text2
 Synergy
-Text Wrangler
-Virtual Box
-Fuse
-MySQL (?)
-XBox Controller
 Adobe CC
 MS Office
 php
 apache
-mysql
+MySQL
 GoToMeeting
 
+## OS X and Linux
+git
+iTerm2
+Spectacle
+Alfred
+Skitch
+BB Edit
+Virtual Box
+Fuse
+
+## Win
+ConEmu
+Git Bash
+
 ## Config things to do
-defaults write com.apple.finder AppleShowAllFiles YES
+OSX: defaults write com.apple.finder AppleShowAllFiles YES
