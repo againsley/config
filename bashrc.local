@@ -1,2 +1,6 @@
+# Make sure bash is being used
+# https://www.howtogeek.com/444596/how-to-change-the-default-shell-to-bash-in-macos-catalina/
+
+
 # Grab bashrc from my config repo
 . ./config/bashrc
