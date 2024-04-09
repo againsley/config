@@ -287,15 +287,15 @@ alias sshup='cp ~/config/sshrc ~/.ssh/config'
 
 # Enable nvmrc: This makes bash respect .nvmrc files and switch to the correct version of node on cd
 # --------------------------------------------------------------------------------------------------
-find-up () {
+  find-up () {
     path=$(pwd)
     while [[ "$path" != "" && ! -e "$path/$1" ]]; do
         path=${path%/*}
     done
     echo "$path"
-}
+  }
 
-cdnvm(){
+  cdnvm(){
     cd "$@";
     nvm_path=$(find-up .nvmrc | tr -d '[:space:]')
 
@@ -336,8 +336,8 @@ cdnvm(){
             nvm use "$nvm_version";
         fi
     fi
-}
-alias cd='cdnvm'
+  }
+  alias cd='cdnvm'
 
 # ---------------------------------------
 # 9.  WEB DEVELOPMENT
