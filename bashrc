@@ -119,10 +119,6 @@ export LSCOLORS=ExFxCxDxBxegedabagacad
   PATH="/Library/Frameworks/Python.framework/Versions/3.4/bin:${PATH}"
   export PATH
 
-# NVM
-  export NVM_DIR="/Users/againsley/.nvm"
-  [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-
 # Default Editor
   export EDITOR=/usr/bin/vim
 

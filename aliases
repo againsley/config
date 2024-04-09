@@ -38,6 +38,10 @@ alias gm='git merge'
 alias gmm='git merge master'
 alias gundolastcommit='git reset HEAD~'
 
+# config
+alias gconfigas='git config user.name "Adam Gainsley" && git config user.email "againsley@arsenalstudios.com"'
+alias gconfigme='git config user.name "Adam Gainsley" && git config user.email "akronymn@gmail.com"'
+
 ##########
 # LastPass
 ##########

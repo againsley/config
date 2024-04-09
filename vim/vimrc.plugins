@@ -24,7 +24,10 @@ Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'ap/vim-css-color'
 
 " matchtagalways
-Plugin 'valloric/matchtagalways'
+" Plugin 'valloric/matchtagalways'
+
+" papercolor colorscheme
+Plugin 'NLKNguyen/papercolor-theme'
 
 " Fugitive
 " Plugin 'tpope/vim-fugitive'
